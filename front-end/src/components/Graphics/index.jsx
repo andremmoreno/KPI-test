@@ -1,31 +1,34 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { collection, getDocs } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { db } from '../../firebase-config';
-import { ResponsiveBar } from '@nivo/bar'
+import { ResponsiveBar } from '@nivo/bar';
+import { Typography } from '@mui/material';
 
 const Graphics = () => {
   const [data, setData] = useState([]);
   const answersCollectionRef = collection(db, 'answers')
 
+  const getAnswers = async () => {
+    const data = await getDocs(answersCollectionRef);
+
+    setData(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
+  };
+  
   useEffect(() => {
-    const fetch = async () => {
-      const data = await getDocs(answersCollectionRef);
 
-      setData(data.docs.map((doc) => ({...doc.data()})));
-    };
-
-    fetch();
+    getAnswers();
   }, []);
 
   return (
     <div>
       {
         data.map((each, index) => {
-          const { result, question } = each;
+          const { result, questionTitle } = each;
 
           return (
             <div key={ index } style={{ height: "400px", width: "900px" }}>
-              <h1>{ question }</h1>
+              <Typography variant="h4">{ questionTitle }</Typography>
               <ResponsiveBar
                 data={result}
                 keys={["value"]}
