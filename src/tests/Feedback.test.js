@@ -18,7 +18,7 @@ import App from '../App';
 //   },
 // ]
 
-describe('Teste Home', () => {
+describe('Teste Feedback', () => {
   test('Verifica Titulo', () => {
     renderWithRouter(<App />, {route: '/feedback'});
 
