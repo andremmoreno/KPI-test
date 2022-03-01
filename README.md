@@ -15,7 +15,6 @@ O projeto consiste em uma estrutura onde um usuário deve responder uma pesquisa
 
 2. Entrar na pasta
 - `cd KPI-test`
-- `cd front-end`
 
 
 3. Instale as dependências
