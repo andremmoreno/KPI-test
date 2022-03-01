@@ -26,4 +26,4 @@ O projeto consiste em uma estrutura onde um usuário deve responder uma pesquisa
 
 # Deploy 
 
-Hospedado no Heroku: <a href=“https://kpi-andre.herokuapp.com/“>LINK</a>
+Hospedado no Heroku: [LINK](https://kpi-andre.herokuapp.com/)
