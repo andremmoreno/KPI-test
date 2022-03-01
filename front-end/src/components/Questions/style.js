@@ -8,4 +8,7 @@ export const MainForm = styled.div`
   width: 100%;
   position: relative;
   margin: 100px auto;
+  padding: 30px;
+  border-radius: 10px;
+  background-color: #FFF;
 `

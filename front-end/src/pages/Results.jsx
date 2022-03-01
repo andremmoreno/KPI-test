@@ -1,10 +1,10 @@
 import React from 'react';
-import { Graphics } from '../components';
+import { Header, Graphics } from '../components';
 
 const Results = () => {
   return (
     <div>
-      <h1>Resultados</h1>
+      <Header />
       <Graphics />
     </div>
   )

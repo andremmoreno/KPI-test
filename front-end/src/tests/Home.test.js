@@ -1,10 +1,28 @@
 import React from 'react';
-import { screen, render } from '@testing-library/react';
-import Home from '../pages/Home';
+import { screen, fireEvent } from '@testing-library/react';
+import renderWithRouter from './renderWithRouter';
+import App from '../App';
 
-test('Teste Boas Vindas', () => {
-  render(<Home />)
-  const welcome = screen.getByText(/Boas Vindas/i);
+describe('Teste Home',   () => {
+  test('Verifica Boas-vindas', () => {
+    renderWithRouter(<App />);
 
-  expect(welcome).toBeTruthy()
-});
+    expect(screen.getByText(/Boas-vindas/i)).toBeTruthy();
+  });
+
+  test('Verifica Botão', () => {
+    renderWithRouter(<App />);
+
+    expect(screen.getByRole('button')).toBeTruthy();
+  });
+
+  test('Verifica se Botão redireciona', () => {
+    renderWithRouter(<App />);
+
+    const btn = screen.getByRole('button');
+
+    fireEvent.click(btn);
+
+    expect(screen.getByText(/Pesquisa/i)).toBeTruthy()
+  })
+})

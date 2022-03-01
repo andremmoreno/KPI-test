@@ -1,7 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, {  } from 'react';
-import { collection, doc, getDocs, updateDoc } from 'firebase/firestore';
-import { db } from '../../firebase-config';
 import { useState, useEffect } from 'react';
 import { 
   Radio,
@@ -13,63 +11,25 @@ import {
   Typography} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { MainForm } from './style';
+import { getAnswers, updateAnswers } from '../../services/answersAPI';
+import swal from 'sweetalert';
 
 const Questions = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [feedback, setFeedback] = useState({});
-  const answersCollectionRef = collection(db, 'answers')
-
-  const getAnswers = async () => {
-    const data = await getDocs(answersCollectionRef);
-
-    setData(data.docs.map((doc) => ({...doc.data(), id: doc.id })));
-  };
 
   useEffect(() => {
-
-    console.log("Req");
-
-    getAnswers();
+    getAnswers(setData);
   }, []);
 
   async function handleClick() {
-    await updateAnswers();
+    await updateAnswers(data, feedback, setData);
 
-    navigate('/results');
-  }
-
-  const updateAnswers = async () => {
-    const allIds = [];
-    const newData = data;
-
-    await getAnswers();
-
-    Object.keys(feedback).forEach((item) => {
-      allIds.push(item.id)
-      newData.forEach((each) => {
-        const { result } = each;
-        result.forEach((info) => {
-          if (info.type === feedback[item]) {
-            console.log(info.value);
-            info.value = info.value + 1;
-          }
-        }) 
-      })
-    })
-    
-    newData.forEach( async (each) => {
-      const { id, result } = each;
-      const answersDoc = doc(db, "answers", id);
-
-      const newField = {
-        result,
-      }
-      console.log(newField);
-      console.log(newData);
-
-      await updateDoc(answersDoc, newField)
-    })    
+    swal("Obrigado!", "Seu feedback foi enviado!", "success")
+    .then(() => {
+      navigate('/results');
+    });
   }
 
   const handleChange = (e) => {
@@ -79,17 +39,23 @@ const Questions = () => {
     }))
   }
 
+  const checkbtn = () => {
+    if (Object.keys(feedback).length < 2) {
+      return true;
+    }
+    return false;
+  }
+
   return (
     <MainForm>
       <Typography variant="h4" component="div" gutterBottom>
         Pesquisa
       </Typography>
-      <FormControl>
       {
-        data.map((each, index) => {
+        data.map((each) => {
           const { id, result, question, row } = each;
           return (
-            <div key={ id }>
+            <FormControl key={ id }>
               <FormLabel id={ `label-${id}` }>
                 { question }
               </FormLabel>
@@ -110,15 +76,15 @@ const Questions = () => {
                   )
                 })}
               </RadioGroup>
-            </div>
+            </FormControl>
           )
         })
       }
-      </FormControl>
       <Button 
         variant="contained"
         type="button"
         onClick={ () => handleClick() }
+        disabled={ checkbtn()}
       >
         Enviar
       </Button>

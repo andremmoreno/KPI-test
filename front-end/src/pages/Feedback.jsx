@@ -1,9 +1,10 @@
 import React from 'react';
-import { Questions } from '../components';
+import { Header, Questions } from '../components';
 
 const Feedback = () => {
   return (
     <div>
+      <Header />
       <Questions />
     </div>
   )

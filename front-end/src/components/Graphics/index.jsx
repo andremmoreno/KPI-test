@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { db } from '../../firebase-config';
 import { ResponsiveBar } from '@nivo/bar';
 import { Typography } from '@mui/material';
+import { GraphicDiv, MainDiv } from './style';
 
 const Graphics = () => {
   const [data, setData] = useState([]);
@@ -11,6 +12,8 @@ const Graphics = () => {
 
   const getAnswers = async () => {
     const data = await getDocs(answersCollectionRef);
+
+    console.log('Requisição');
 
     setData(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
   };
@@ -21,19 +24,19 @@ const Graphics = () => {
   }, []);
 
   return (
-    <div>
+    <MainDiv>
       {
         data.map((each, index) => {
           const { result, questionTitle } = each;
 
           return (
-            <div key={ index } style={{ height: "400px", width: "900px" }}>
+            <GraphicDiv key={ index }>
               <Typography variant="h4">{ questionTitle }</Typography>
               <ResponsiveBar
                 data={result}
                 keys={["value"]}
                 indexBy="type"
-                margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
+                margin={{ top: 50, right: 10, bottom: 50, left: 45 }}
                 padding={0.4}
                 valueScale={{ type: "linear" }}
                 colors="#3182CE"
@@ -50,11 +53,11 @@ const Graphics = () => {
                   legendOffset: -40
                 }}
                />
-            </div>
+            </GraphicDiv>
           )
         })
       }
-    </div>
+    </MainDiv>
   )
 }
 
