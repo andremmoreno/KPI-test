@@ -14,9 +14,8 @@ O projeto consiste em uma estrutura onde um usuário deve responder uma pesquisa
 - `git clone git@github.com:andremmoreno/KPI-test.git`.
 
 2. Entrar na pasta
-- Entre na pasta do repositório que você acabou de clonar:
-  - `cd KPI-test`
-  - `cd front-end`
+- `cd KPI-test`
+- `cd front-end`
 
 
 3. Instale as dependências
