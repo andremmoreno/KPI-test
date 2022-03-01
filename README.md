@@ -15,7 +15,6 @@ O projeto consiste em uma estrutura onde um usuário deve responder uma pesquisa
 
 2. Entrar na pasta
 - `cd KPI-test`
-- `cd front-end`
 
 
 3. Instale as dependências
@@ -23,4 +22,8 @@ O projeto consiste em uma estrutura onde um usuário deve responder uma pesquisa
 
 4. Inicie o projeto
 
-- `npm start`
+- `npm run dev`
+
+# Deploy 
+
+Hospedado no Heroku: <a href=“https://kpi-andre.herokuapp.com/“>LINK</a>
