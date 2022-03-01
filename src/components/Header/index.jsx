@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Avatar, AppBar, Box, Toolbar, Typography } from '@mui/material';
 import { UserTypography } from './style';
+import { Link } from 'react-router-dom';
 
 export default function ButtonAppBar() {
   const user = {
@@ -13,7 +14,9 @@ export default function ButtonAppBar() {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
-            Key People Insights - KPI
+            <Link to='/' style={{ textDecoration: 'none', color: '#FFF' }}>
+              Key People Insights - KPI
+            </Link>
           </Typography>
           <UserTypography>
             {`Olá, ${user.name}`}
